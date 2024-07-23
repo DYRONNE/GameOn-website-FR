@@ -6,6 +6,9 @@ const modalButtons = document.querySelectorAll(".modal-btn");
 const formInputs = document.querySelectorAll(".formData");
 const close = document.querySelector(".close");
 const topnavbar = document.getElementById("myTopnav");
+const modalbackgroundContent = document.querySelector(".content");
+const validateModal = document.querySelector(".validationModal_content");
+
 
 // toggle navbar
 function editNav() {
@@ -29,110 +32,144 @@ function closeModal() {
   modalbackground.style.display = "none";
 }
 
+function closeContentModal() {
+  modalbackgroundContent.style.display = "none";
+}
+
+function launchValidateModal() {
+  validateModal.style.display = "block";
+}
 
 // ensemble des fonctions de validations
 
 /**
  * Cette fonction prend un nom en paramètre et valide qu'il est au bon format
  * @param {string} prenom
- * @throws {Error}
+ * @return {boolean}
  */
 
 function validerPrenom(prenom) {
+  const inputElement = document.getElementById("first");
   const errorElement = document.getElementById("error-first");
   if (prenom.length < 2) {
     errorElement.textContent = "Veuillez entrer 2 caractères ou plus pour le champ du prénom.";
-    throw new Error("Invalid first name");
+    inputElement.classList.add("error-border");
+    return false;
   } else {
     errorElement.textContent = "";
+    inputElement.classList.remove("error-border");
+    return true;
   }
 }
 /**
  * Cette fonction prend un nom en paramètre et valide qu'il est au bon format
  * @param {string} nom
- * @throws {Error}
+ * @return {boolean}
  */
 
 function validerNom(nom) {
+  const inputElement = document.getElementById("last");
   const errorElement = document.getElementById("error-last");
   if (nom.length < 2) {
     errorElement.textContent = "Veuillez entrer au moins 2 caractères pour le champ du nom.";
-    throw new Error("Invalid last name");
+    inputElement.classList.add("error-border");
+    return false;
   } else {
     errorElement.textContent = "";
+    inputElement.classList.remove("error-border");
+    return true;
   }
 }
 
 /**
  * Cette fonction prend un nom en paramètre et valide qu'il est au bon format
  * @param {number} quantity
- * @throws {Error}
+ * @return {boolean}
  */
 function validerQuantity(quantity) {
+  const inputElement = document.getElementById("quantity");
   const errorElement = document.getElementById("error-quantity");
   let quantityRegExp = new RegExp("^[0-9]+$");
   if (!quantityRegExp.test(quantity)) {
     errorElement.textContent = "La quantité n'est pas valide.";
-    throw new Error("Invalid quantity");
+    inputElement.classList.add("error-border");
+    return false;
   } else {
     errorElement.textContent = "";
+    inputElement.classList.remove("error-border");
+    return true;
   }
 }
 
 /**
  * Cette fonction prend un email en paramètre et valide qu'il est au bon format. 
  * @param {string} email 
- * @throws {Error}
+ * @return {boolean}
  */
 
 function validerEmail(email) {
+  const inputElement = document.getElementById("email");
   const errorElement = document.getElementById("error-email");
   let emailRegExp = new RegExp("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$");
   if (!emailRegExp.test(email)) {
     errorElement.textContent = "L'email n'est pas valide.";
-    throw new Error("Invalid email");
+    inputElement.classList.add("error-border");
+    return false;
   } else {
     errorElement.textContent = "";
+    inputElement.classList.remove("error-border");
+    return true;
+
   }
 }
 
 /**
  * Cette fonction prend une date en paramètre et valide qu'il est au bon format. 
  * @param {string} date
- * @throws {Error}
+ * @return {boolean}
  */
 
 function validerDate(date) {
+  const inputElement = document.getElementById("birthdate");
   const errorElement = document.getElementById("error-date");
-  let dateRegExp = new RegExp("/^\d{2}\/\d{2}\/\d{4}$/");
+  let dateRegExp = new RegExp("^(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[0-2])\\/\\d{4}$");
   if (!dateRegExp.test(date)) {
-    errorElement.textContent = "Entrer une date valide.";
-    throw new Error("Invalid date");
+    errorElement.textContent = "Entrer une date valide (format JJ/MM/AAAA).";
+        inputElement.classList.add("error-border");
+        return false;
   } else {
     errorElement.textContent = "";
+    inputElement.classList.remove("error-border");
+    return true;
+
   }
 }
 
 /**
  * Cette fonction prend un booléen en paramètre et valide qu'il est vrai. 
  * @param {boolean} conditions 
- * @throws {Error}
+ * @return {boolean}
  */
 function validerConditions(conditions) {
+  const inputElement = document.getElementById("checkbox1");
   const errorElement = document.getElementById("error-conditions");
   if (conditions !== true) {
     errorElement.textContent = "Veuillez accepter les conditions d'utilisation.";
-    throw new Error("Conditions not accepted");
+    return false;
   } else {
     errorElement.textContent = "";
+    return true;
+
+   
+   
   }
 }
 /**
 * Cette fonction prend une liste de localisations en paramètre et valide qu'au moins une localisation est cochée.
  * @param {Array} listelocalisation
- * @throws {Error}
+ * @return {boolean}
  */
-function ValiderLocalisation(listelocalisation) {
+function validerLocalisation(listelocalisation) {
   const errorElement = document.getElementById("error-location");
   let isValid = false;
   for (let i = 0; i < listelocalisation.length; i++) {
@@ -143,48 +180,54 @@ function ValiderLocalisation(listelocalisation) {
   }
   if (!isValid) {
     errorElement.textContent = "Aucune localisation n'est valide.";
-    throw new Error("No location selected");
+    return false;
   } else {
     errorElement.textContent = "";
+    return true;
   }
 }
 
 
   // recuperation  des donnees pour validation et appel des fonctions
-try {
+
   let form = document.querySelector("form");
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+
+
   
     let balisePrenom = document.getElementById("first");
-    let prenom = balisePrenom.value;
-    validerPrenom(prenom);
-  
-    let BaliseNom = document.getElementById("last");
-    let nom = BaliseNom.value;
-    validerNom(nom);
+  let prenom = balisePrenom.value;
+  let prenomValid = validerPrenom(prenom);
 
-    let BaliseEmail = document.getElementById("email");
-    let email = BaliseEmail.value;
-    validerEmail(email);
-  
-    let Birthdate = document.getElementById("birthdate")
-    let date = Birthdate.value;
-    validerDate(date);
+  let baliseNom = document.getElementById("last");
+  let nom = baliseNom.value;
+  let nomValid = validerNom(nom);
 
-    let BaliseQuantity = document.getElementById("quantity");
-    let quantity = BaliseQuantity.value;
-    validerQuantity(quantity)
+  let baliseEmail = document.getElementById("email");
+  let email = baliseEmail.value;
+  let emailValid = validerEmail(email);
 
-    let ConditionsGenerales = document.getElementById("checkbox1");
-    let conditions = ConditionsGenerales.checked;
-    validerConditions(conditions)
+  let birthdate = document.getElementById("birthdate");
+  let date = birthdate.value;
+  let dateValid = validerDate(date);
 
-    let listelocalisation = document.querySelectorAll("input[type=radio]");
-    ValiderLocalisation(listelocalisation)
+  let baliseQuantity = document.getElementById("quantity");
+  let quantity = baliseQuantity.value;
+  let quantityValid = validerQuantity(quantity);
 
-    }
-)
-} catch(error) {
-  // Erreurs déjà gérées individuellement par chaque fonction de validation
-}
+  let conditionsGenerales = document.getElementById("checkbox1");
+  let conditions = conditionsGenerales.checked;
+  let conditionsValid = validerConditions(conditions);
+
+  let listelocalisation = document.querySelectorAll("input[name='location']");
+  let localisationValid = validerLocalisation(listelocalisation);
+
+  if (prenomValid && nomValid && emailValid && dateValid && quantityValid && conditionsValid && localisationValid) {
+    closeContentModal();
+    launchValidateModal();
+  } else {
+    console.error("Erreur de validation des données du formulaire");
+  }
+});
+
