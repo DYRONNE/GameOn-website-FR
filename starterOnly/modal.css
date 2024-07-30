@@ -482,34 +482,25 @@ input[data-error]::after {
 .hero-section > .btn-signup {
   display: none;
 }
-
-.validationModal_content {
-  margin: 5% auto;
-  width: 100%;
-  max-width: 500px;
-  height: 750px;
-  background: #232323;
-  border-radius: 10px;
-  overflow: hidden;
-  position: relative;
-  color: #fff;
-  padding-top: 10px;
-  display: none;
-  z-index: 2;
-  bottom: 600px;
- 
-
+.postRegisterContent {
+  max-width: 536px;
+  max-height: 850px;
+  height: 83.1%;
+  
 }
-.validationModal_content-txt p {
+
+.postRegisterContent-text {
   font-size: 36px;
   font-weight: 400;
   line-height: 51px;
+  letter-spacing: 0em;
   text-align: center;
-  padding-top: 300px;
-  padding-bottom: 270px;
- 
+  padding-top: 207px;
+  padding-bottom: 300px;
+  
 }
-.validationModal_content-button button {
+
+.btn-fermer {
   background: #fe142f;
   display: block;
   margin: 0 auto;
@@ -519,9 +510,12 @@ input[data-error]::after {
   color: #fff;
   cursor: pointer;
   border: 0;
-  
-  
 }
+
+.postRegisterContent {
+  padding: 0;
+}
+
 footer {
   padding-left: 2vw;
   padding-right: 2vw;
@@ -586,13 +580,30 @@ footer {
     position: fixed;
     z-index: 1;
     left: 0;
-    top: 40px;
+    top: 30px;
     height: 100%;
     width: 100%;
     overflow: auto;
     background-color: transparent;
   }
   
+  .postRegisterContent {
+    max-width: 536px;
+    max-height: 1000px;
+    height: 100%;
+    
+  }
+  
+  .postRegisterContent-text {
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 51px;
+    letter-spacing: 0em;
+    text-align: center;
+    padding-top: 207px;
+    padding-bottom: 250px;
+    
+  }
   .copyrights {
     margin: 0px;
     text-align: center;

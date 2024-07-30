@@ -7,13 +7,21 @@ const formInputs = document.querySelectorAll(".formData");
 const close = document.querySelector(".close");
 const topnavbar = document.getElementById("myTopnav");
 const modalbackgroundContent = document.querySelector(".content");
-const validateModal = document.querySelector(".validationModal_content");
+const content = document.querySelector(".content");
+
+const testmodal = document.querySelector(".postRegisterModal");
+const testcontent = document.querySelector(".postRegisterContent");
+const testclose = document.querySelector(".postRegisterClose");
+const btnfermer = document.querySelector(".btn-fermer");
 
 
-// toggle navbar
+
+// ----toggle navbar-----
 function editNav() {
   topnavbar.classList.toggle("responsive");
   }
+
+  // -----------ouverture et fermeture du formulaire------------- 
 
 // launch modal event
 modalButtons.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -27,20 +35,31 @@ function launchModal() {
 
 }
 
-// close modal function
+// close modal 
 function closeModal() {
   modalbackground.style.display = "none";
 }
 
-function closeContentModal() {
-  modalbackgroundContent.style.display = "none";
+//  -------------- POST REGISTRATION MODAL --------------
+
+// event listeners post registration modal
+
+testclose.addEventListener("click", handleM); // Use addEventListener directly
+btnfermer.addEventListener("click", handleM);
+
+// launch post registration modal
+function launchM() {
+  testmodal.style.display = "block";
+  
 }
 
-function launchValidateModal() {
-  validateModal.style.display = "block";
+// close  post registration modal
+function handleM() {
+  testmodal.style.display = "none";
 }
 
-// ensemble des fonctions de validations
+
+// ----------------ensemble des fonctions de validations---------------
 
 /**
  * Cette fonction prend un nom en paramètre et valide qu'il est au bon format
@@ -188,7 +207,7 @@ function validerLocalisation(listelocalisation) {
 }
 
 
-  // recuperation  des donnees pour validation et appel des fonctions
+  // ------------recuperation  des donnees pour validation et appel des fonctions---------------
 
   let form = document.querySelector("form");
   form.addEventListener("submit", (event) => {
@@ -224,8 +243,8 @@ function validerLocalisation(listelocalisation) {
   let localisationValid = validerLocalisation(listelocalisation);
 
   if (prenomValid && nomValid && emailValid && dateValid && quantityValid && conditionsValid && localisationValid) {
-    closeContentModal();
-    launchValidateModal();
+    launchM();
+    closeModal();
   } else {
     console.error("Erreur de validation des données du formulaire");
   }
