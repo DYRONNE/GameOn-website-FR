@@ -1,6 +1,6 @@
 
 
-// DOM Elements
+// DOM Elements modal
 const modalbackground = document.querySelector(".bground");
 const modalButtons = document.querySelectorAll(".modal-btn");
 const formInputs = document.querySelectorAll(".formData");
@@ -9,6 +9,7 @@ const topnavbar = document.getElementById("myTopnav");
 const modalbackgroundContent = document.querySelector(".content");
 const content = document.querySelector(".content");
 
+// DOM ELEMNT POST REGISTRATION
 const testmodal = document.querySelector(".postRegisterModal");
 const testcontent = document.querySelector(".postRegisterContent");
 const testclose = document.querySelector(".postRegisterClose");
@@ -21,31 +22,28 @@ function editNav() {
   topnavbar.classList.toggle("responsive");
   }
 
-  // -----------ouverture et fermeture du formulaire------------- 
-
-// launch modal event
-modalButtons.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// close modal event
-close.addEventListener("click", closeModal);
+// -----------ouverture et fermeture du formulaire------------- 
 
 // launch modal form
 function launchModal() {
   modalbackground.style.display = "block";
 
 }
+// launch modal event
+modalButtons.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // close modal 
 function closeModal() {
   modalbackground.style.display = "none";
 }
+// close modal event
+close.addEventListener("click", closeModal);
+
+
+
 
 //  -------------- POST REGISTRATION MODAL --------------
 
-// event listeners post registration modal
-
-testclose.addEventListener("click", handleM); // Use addEventListener directly
-btnfermer.addEventListener("click", handleM);
 
 // launch post registration modal
 function launchM() {
@@ -57,6 +55,12 @@ function launchM() {
 function handleM() {
   testmodal.style.display = "none";
 }
+
+// event listeners post registration modal
+
+testclose.addEventListener("click", handleM);
+btnfermer.addEventListener("click", handleM);
+
 
 
 // ----------------ensemble des fonctions de validations---------------
